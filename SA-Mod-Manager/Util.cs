@@ -681,17 +681,18 @@ namespace SAModManager
             return true;
         }
 
-        public static async Task<bool> Net8Check()
+        public static async Task<bool> Net10Check()
         {
-            var finder = new FrameworkFinder(Environment.Is64BitOperatingSystem);
+            bool is64Bit = Environment.Is64BitProcess;
+            var finder = new FrameworkFinder(is64Bit);
             var resolver = new DependencyResolver(finder);
-            var framework = new Framework("Microsoft.WindowsDesktop.App", "8.0.7");
-            var options = new RuntimeOptions("net8.0", framework, RollForwardPolicy.Minor);
+            var framework = new Framework("Microsoft.WindowsDesktop.App", "10.0.0");
+            var options = new RuntimeOptions("net10.0", framework, RollForwardPolicy.Minor);
             var result = resolver.Resolve(options);
 
             if (!result.Available)
             {
-                var res = new MessageWindow(Lang.GetString("MessageWindow.DefaultTitle.Warning"), Lang.GetString("MessageWindow.Warnings.Net8Missing"), MessageWindow.WindowType.IconMessage, MessageWindow.Icons.Warning, MessageWindow.Buttons.YesNo);
+                var res = new MessageWindow(Lang.GetString("MessageWindow.DefaultTitle.Warning"), Lang.GetString("MessageWindow.Warnings.Net10Missing"), MessageWindow.WindowType.IconMessage, MessageWindow.Icons.Warning, MessageWindow.Buttons.YesNo);
                 res.ShowDialog();
 
                 if (res.isYes != true)
@@ -699,23 +700,16 @@ namespace SAModManager
                     return false;
                 }
 
-                FrameworkDownloader frameworkDownloader = new(framework.NuGetVersion, framework.FrameworkName);
-                var url = await frameworkDownloader.GetDownloadUrlAsync(Environment.Is64BitOperatingSystem ? Architecture.Amd64 : Architecture.x86);
-                Uri uri = new(url + "\r\n");
+                string arch = is64Bit ? "x64" : "x86";
+                string url = $"https://aka.ms/dotnet-core-applaunch?missing_runtime=true&arch={arch}&apphost_version=10.0.0&gui=true";
 
-                if (url != null)
+                try
                 {
-                    string name = "aspnetcore-runtime-8.0.exe";
-                    string fullPath = Path.GetFullPath(Path.Combine(App.tempFolder, name));
-                    var netDL = new List<DownloadInfo>
-                    {
-                        new("Net Core 8.0", name, App.tempFolder, uri, DownloadDialog.DLType.Download)
-                    };
-                    var DL = new DownloadDialog(netDL);
-                    DL.StartDL();
-
-                    if (File.Exists(fullPath))
-                        Process.Start(fullPath);
+                    Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+                }
+                catch (Exception ex)
+                {
+                    Logger.Log("Failed to open .NET Desktop Runtime download page: " + ex.Message);
                 }
 
                 return false;

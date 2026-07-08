@@ -140,7 +140,7 @@
 	<system:String x:Key="MessageWindow.Warnings.ProfileMigration.Message1" xml:space="preserve">Die folgenden Dateien konnten nicht als Profile importiert werden:</system:String>
 	<system:String x:Key="MessageWindow.Warnings.ProfileMigration.Message2" xml:space="preserve">&#x0a;&#x0a;Bitte stelle sicher, dass du nur JSON-Dateien von Spielprofilen, oder alte Loader ini-Dateien verwendest.</system:String>
 
-    <system:String x:Key="MessageWindow.Warnings.Net8Missing" xml:space="preserve">Das neue Mod Manager-Update erfordert mindestens .NET 8.0.7 Desktop Runtime, um zu funktionieren.&#x0a;&#x0a;Möchtest du es jetzt installieren?</system:String>
+    <system:String x:Key="MessageWindow.Warnings.Net10Missing" xml:space="preserve">Das neue Mod Manager-Update erfordert mindestens .NET 10.0.0 Desktop Runtime, um zu funktionieren.&#x0a;&#x0a;Möchtest du es jetzt installieren?</system:String>
     <system:String x:Key="MessageWindow.Warnings.ASLRDetected" xml:space="preserve">Es sieht so aus, als hättest du ASLR in den Windowseinstellungen aktiviert. Dies kann dazu führen, dass der Mod Loader nicht funktioniert. Es wird empfohlen, diese Einstellung zu deaktivieren.</system:String>
 
     <system:String x:Key="MessageWindow.Warnings.ChannelReleaseSwap" xml:space="preserve">Du bist dabei, zur aktuellen Release-Version des Managers zu wechseln.&#x0a;Möchtest du fortfahren? Der Manager wird neu gestartet, um den Kanal zu wechseln.</system:String>

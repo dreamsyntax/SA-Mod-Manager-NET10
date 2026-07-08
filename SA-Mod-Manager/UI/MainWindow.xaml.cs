@@ -127,6 +127,12 @@ namespace SAModManager
 #if !DEBUG
             if (App.isFirstBoot == false)
             {
+                if (!await Util.Net10Check())
+                {
+                    UIHelper.ToggleButton(ref btnCheckUpdates, true);
+                    return;
+                }
+
                 if (chkUpdateManager.IsChecked == true)
                 {
                     UpdateManagerStatusText(Lang.GetString("UpdateStatus.ChkUpdate"));
@@ -1164,6 +1170,13 @@ namespace SAModManager
         private async void btnCheckUpdates_Click(object sender, RoutedEventArgs e)
         {
             UIHelper.ToggleButton(ref btnCheckUpdates, false);
+
+            if (!await Util.Net10Check())
+            {
+                UIHelper.ToggleButton(ref btnCheckUpdates, true);
+                return;
+            }
+
             bool isDev = App.isDev;
             bool managerUpdate = isDev ? await App.PerformDevUpdateManagerCheck() : await App.PerformUpdateManagerCheck();
             App.CancelUpdate = false;
