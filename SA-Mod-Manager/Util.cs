@@ -686,7 +686,7 @@ namespace SAModManager
             bool is64Bit = Environment.Is64BitProcess;
             var finder = new FrameworkFinder(is64Bit);
             var resolver = new DependencyResolver(finder);
-            var framework = new Framework("Microsoft.WindowsDesktop.App", "10.0.0");
+            var framework = new Framework("Microsoft.WindowsDesktop.App", "10.0.0"); 
             var options = new RuntimeOptions("net10.0", framework, RollForwardPolicy.Minor);
             var result = resolver.Resolve(options);
 
