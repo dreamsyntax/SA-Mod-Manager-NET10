@@ -141,7 +141,7 @@
   <system:String x:Key="MessageWindow.Warnings.ProfileMigration.Message1" xml:space="preserve">以下文件未能成功导入为配置文件：</system:String>
   <system:String x:Key="MessageWindow.Warnings.ProfileMigration.Message2" xml:space="preserve">&#x0a;&#x0a;请确保仅导入游戏配置 JSON 文件或旧版加载器 ini 文件。</system:String>
 
-  <system:String x:Key="MessageWindow.Warnings.Net8Missing" xml:space="preserve">模组管理器新版本需要至少 .NET 8.0.7 Desktop Runtime 才能运行。&#x0a;&#x0a;是否立即安装？</system:String>
+  <system:String x:Key="MessageWindow.Warnings.Net10Missing" xml:space="preserve">模组管理器新版本需要至少 .NET 10.0.0 Desktop Runtime 才能运行。&#x0a;&#x0a;是否立即安装？</system:String>
   <system:String x:Key="MessageWindow.Warnings.ASLRDetected" xml:space="preserve">检测到你已启用 Windows 的 ASLR（地址空间布局随机化）设置，这可能导致模组加载器无法正常工作，建议禁用该设置。</system:String>
 
   <system:String x:Key="MessageWindow.Warnings.ChannelReleaseSwap" xml:space="preserve">你即将切换到管理器的当前正式版本。&#x0a;是否确认继续？管理器将重启以完成渠道切换。</system:String>
