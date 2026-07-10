@@ -103,7 +103,12 @@ namespace SAModManager.Updater
 
             GitHubRelease latestRelease = null;
             GitHubAsset latestAsset = null;
+            DateTime latestAssetUploaded = DateTime.MinValue;
 
+            bool foundAsset = false;
+
+            // The loop finds the latest release (based on date) out of the releases
+            // that are newer than the version stored in mod.version.
             foreach (GitHubRelease release in releases)
             {
                 GitHubAsset asset = release.Assets
@@ -114,24 +119,28 @@ namespace SAModManager.Updater
                     continue;
                 }
 
-                latestRelease = release;
+                foundAsset = true;
+
+                DateTime uploaded = DateTime.Parse(asset.Uploaded, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal);
 
                 if (!ForceUpdate && localVersion.HasValue)
                 {
-                    DateTime uploaded = DateTime.Parse(asset.Uploaded, CultureInfo.InvariantCulture, DateTimeStyles.AssumeLocal);
-
                     if (localVersion >= uploaded)
                     {
-                        // No updates available.
-                        break;
+                        // Skip this release since it's older than our current version.
+                        continue;
                     }
                 }
 
-                latestAsset = asset;
-                break;
+                if(uploaded > latestAssetUploaded)
+                {
+                    latestRelease = release;
+                    latestAsset = asset;
+                    latestAssetUploaded = uploaded;
+                }
             }
 
-            if (latestRelease == null)
+            if (!foundAsset)
             {
                 errors.Add($"[{mod.Name}] No releases with matching asset \"{mod.GitHubAsset}\" could be found in {releases.Count} release(s).");
                 return null;
