@@ -41,7 +41,7 @@ jobs:
 
     - name: Publish 64-bit WPF application
       working-directory: ${{env.GITHUB_WORKSPACE}}
-      run: dotnet publish win-x64 -c Release
+      run: dotnet publish -r win-x64 -c Release
       
     - name: CleanUp Misc Files (64-bit)
       working-directory: ${{github.workspace}}\bin\Release\net8.0-windows7.0\win-x64\publish
